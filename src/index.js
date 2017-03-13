@@ -4,7 +4,8 @@ import './index.css';
 import SignUp from "./components/signup"
 import Main from "./components/main"
 import Login from "./components/login"
-import Register from "./components/registerdonor"
+import Register from "./components/registerdonor";
+import Fetch from "./components/fetchDetails"
 var { Route, Router, IndexRoute, hashHistory } = require('react-router');
 var { Provider } = require("react-redux");
 import myFirebase from "./firebase/firebase.js";
@@ -22,6 +23,7 @@ ReactDOM.render(
       <Route path="/" component={Main}>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path = "/fetch" component = {Fetch}/>
         <IndexRoute component={SignUp} />
       </Route>
     </Router>
