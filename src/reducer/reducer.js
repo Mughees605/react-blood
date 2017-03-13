@@ -9,3 +9,14 @@ export var signUpReducer = (state = {},action)=>{
         return state
     }
 }
+export var fetchData = (state = [],action)=>{
+    switch(action.type){
+        case "SEARCH_START":
+       
+        return [
+            action.data
+        ];
+        default:
+        return state
+    }
+}
