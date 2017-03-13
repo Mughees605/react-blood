@@ -17,6 +17,12 @@ var pullData = (data)=>{
         data
     }
 }
+var searchStart = (data)=>{
+    return {
+        type:"SEARCH_START",
+        data
+    }
+}
 
 export var signUpAction = (credentials) => {
     return (dispatch, getState) => {
@@ -52,7 +58,7 @@ export var pullData = () => {
     return (dispatch, getState) => {
         var user = myFirebase.auth().currentUser;
         var uid = user.uid;
-        var dataRef = myFirebase.database().ref().child("users/AB");
+        var dataRef = myFirebase.database().ref().child("users");
         return dataRef.on("value",function(snapshot){
             var todos = snapshot.val() || {}
              var parseData = [];
@@ -68,9 +74,17 @@ export var pullData = () => {
 export var searchData =(bloodGroup) =>{
     return (dispatch,getState)=>{
         var bGroup = myFirebase.database().ref().child("users/"+bloodGroup);
-        bGroup.on("value",(snapshot)=>{
+        bGroup.once("value",(snapshot)=>{
             var value = snapshot.val();
-            console.log(value, "action blood grupt")
+          var  filteredData = [];
+           Object.keys(value).forEach((val)=>{
+            filteredData.push({
+                ...value[val]
+            })
+              dispatch(searchStart(filteredData))
+           })
+           console.log(filteredData,"filteredData")
+       
         })
     }
 }
